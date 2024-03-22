@@ -6,9 +6,11 @@ const POST_GRAPHQL_FIELDS = `
   }
   date
   author {
-    name
-    picture {
-      url
+    ... on Author {
+      name
+      picture {
+        url
+      }
     }
   }
   excerpt
@@ -70,9 +72,10 @@ export async function getPreviewPostBySlug(slug: string | null): Promise<any> {
 }
 
 export async function getAllPosts(isDraftMode: boolean): Promise<any[]> {
+  const contentfulCollectionLimit = process.env.CONTENTFUL_COLLECTION_LIMIT;
   const entries = await fetchGraphQL(
     `query {
-      postCollection(where: { slug_exists: true }, order: date_DESC, preview: ${
+      postCollection(limit: 10, where: { slug_exists: true }, order: date_DESC, preview: ${
         isDraftMode ? "true" : "false"
       }) {
         items {
