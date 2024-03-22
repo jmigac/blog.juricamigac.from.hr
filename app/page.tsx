@@ -7,7 +7,7 @@ import Avatar from "./avatar";
 import MoreStories from "./more-stories";
 
 import { getAllPosts } from "@/lib/api";
-import { CMS_NAME, CMS_URL } from "@/lib/constants";
+import Footer from "@/app/footer";
 
 function Intro() {
   return (
@@ -15,6 +15,9 @@ function Intro() {
       <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
         Blog.
       </h1>
+      <h4 className="text-xl font-bold">
+        <Link href="https://juricamigac.from.hr">Back to CV</Link>
+      </h4>
     </section>
   );
 }
@@ -78,6 +81,7 @@ export default async function Page() {
         />
       )}
       <MoreStories morePosts={morePosts} />
+      <Footer />
     </div>
   );
 }
