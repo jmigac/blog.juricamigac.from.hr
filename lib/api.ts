@@ -28,6 +28,7 @@ const POST_GRAPHQL_FIELDS = `
       }
     }
   }
+  featuredBlogPost
 `;
 
 async function fetchGraphQL(query: string, preview = false): Promise<any> {
