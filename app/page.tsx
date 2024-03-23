@@ -8,6 +8,7 @@ import MoreStories from "./more-stories";
 
 import { getAllPosts } from "@/lib/api";
 import Footer from "@/app/footer";
+import { da } from "date-fns/locale";
 
 function Intro() {
   return (
@@ -61,12 +62,20 @@ function HeroPost({
   );
 }
 
+function getFeaturedBlogPost(allPosts: any): any {
+  return allPosts.filter((post: { featuredBlogPost: string; }) => post.featuredBlogPost === "YES");
+}
+
+function getMoreBlogPosts(allPosts: any): any[] {
+  return allPosts.filter((post: { featuredBlogPost: string; }) => post.featuredBlogPost === "NO");
+}
+
 export default async function Page() {
   const { isEnabled } = draftMode();
   const allPosts = await getAllPosts(isEnabled);
-  const heroPost = allPosts[0];
-  const morePosts = allPosts.slice(1);
-
+  const heroPost = getFeaturedBlogPost(allPosts)[0];  
+  const morePosts = getMoreBlogPosts(allPosts);
+  
   return (
     <div className="container mx-auto px-5">
       <Intro />
